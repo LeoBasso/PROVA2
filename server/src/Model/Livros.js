@@ -25,7 +25,7 @@ const LivrosSchema = new Schema({
     required: [true],
   },
   publishDate: {
-    type: date,
+    type: String,
     trim: true,
     required: [true],
   },

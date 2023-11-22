@@ -53,7 +53,7 @@ function AdicionarLivro() {
     if (Object.keys(errors).length === 0) {
       try {
         await axios.post(
-          "https://fakerestapi.azurewebsites.net/api/v1/books",
+          "mongodb+srv://leobasso08:leonardo00@clusterleo.6stdym7.mongodb.net/",
           livro
         );
 

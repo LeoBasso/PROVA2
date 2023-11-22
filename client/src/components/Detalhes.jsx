@@ -10,7 +10,7 @@ function Detalhes() {
     async function buscarDetalhesDoLivro() {
       try {
         const response = await axios.get(
-          `https://fakerestapi.azurewebsites.net/api/v1/books/${id}`
+          `mongodb+srv://leobasso08:leonardo00@clusterleo.6stdym7.mongodb.net/${id}`
         );
         const detalhes = response.data;
         setLivroDetalhes(detalhes);

@@ -26,7 +26,7 @@ function EditarLivro() {
     async function buscarDetalhesDoLivro() {
       try {
         const response = await axios.get(
-          `https://fakerestapi.azurewebsites.net/api/v1/books/${id}`
+          `mongodb+srv://leobasso08:leonardo00@clusterleo.6stdym7.mongodb.net/${id}`
         );
         const detalhes = response.data;
         setLivroDetalhes(detalhes);
@@ -63,7 +63,7 @@ function EditarLivro() {
     if (Object.keys(errors).length === 0) {
       try {
         await axios.put(
-          `https://fakerestapi.azurewebsites.net/api/v1/books/${id}`,
+          `mongodb+srv://leobasso08:leonardo00@clusterleo.6stdym7.mongodb.net/${id}`,
           edicao
         );
         setMensagem("Alterações salvas com sucesso");

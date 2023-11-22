@@ -9,7 +9,7 @@ function ListLivros() {
     async function buscarLivros() {
       try {
         const response = await axios.get(
-          "https://fakerestapi.azurewebsites.net/api/v1/books"
+          "mongodb+srv://leobasso08:leonardo00@clusterleo.6stdym7.mongodb.net/"
         );
         const livrosData = response.data;
         setLivros(livrosData);
@@ -27,7 +27,7 @@ function ListLivros() {
     if (confirmarExclusao) {
       try {
         await axios.delete(
-          `https://fakerestapi.azurewebsites.net/api/v1/books/${livroId}`
+          `mongodb+srv://leobasso08:leonardo00@clusterleo.6stdym7.mongodb.net/${livroId}`
         );
         setLivros(livros.filter((livro) => livro.id !== livroId));
       } catch (error) {
