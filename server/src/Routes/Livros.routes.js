@@ -1,10 +1,11 @@
 const express = require('express');
-
-const livrosController = require('../controllers/LivrosController');
+const livrosController = require('../Controllers/LivrosController');
 
 const router = express.Router();
 
 router.get('/livros', livrosController.getAllLivros);
+
+router.get('/livros/:id', livrosController.getLivroById);
 
 router.post('/livros', livrosController.createLivros);
 

@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function AdicionarLivro() {
+  const navigate = useNavigate();
+
   const [livro, setLivro] = useState({
     title: "",
     author: "",
@@ -52,15 +54,14 @@ function AdicionarLivro() {
 
     if (Object.keys(errors).length === 0) {
       try {
-        await axios.post(
-          "mongodb+srv://leobasso08:leonardo00@clusterleo.6stdym7.mongodb.net/",
-          livro
-        );
-
-        setMensagem("Livro adicionado com sucesso");
-        setTimeout(clearMessage, 3000);
+        await axios.post("http://localhost:4000/Livros/", livro);
+        setMensagem("Livro sendo adicionado, aguarde...");
+        setTimeout(() => {
+          clearMessage();
+          navigate("/");
+        }, 3000);
       } catch (error) {
-        console.error("Erro ao adicionar o livro:", error);
+        console.error("Erro ao adicionar o livro:", error.response.data);
         setMensagem("Erro ao adicionar o livro. Por favor, tente novamente.");
         setTimeout(clearMessage, 3000);
       }

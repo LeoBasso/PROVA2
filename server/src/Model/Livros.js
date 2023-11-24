@@ -6,7 +6,7 @@ const LivrosSchema = new Schema({
   title: {
     type: String,
     trim: true,
-    required: [true, 'Por favor coloque o titulo'],
+    required: [true, 'Por favor coloque o título'],
     maxlength: 30,
   },
   description: {
@@ -19,15 +19,10 @@ const LivrosSchema = new Schema({
     trim: true,
     required: [true, 'Por favor coloque a quantidade de páginas'],
   },
-  excerpt: {
-    type: String,
-    trim: true,
-    required: [true],
-  },
   publishDate: {
     type: String,
     trim: true,
-    required: [true],
+    required: [true, 'Por favor coloque a data de publicação'],
   },
 });
 

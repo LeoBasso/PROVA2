@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
 import axios from "axios";
+import { useParams, Link, useNavigate } from "react-router-dom";
 
 function EditarLivro() {
   const { id } = useParams();
+  const navigate = useNavigate();
+
   const [livroDetalhes, setLivroDetalhes] = useState(null);
   const [edicao, setEdicao] = useState({
     title: "",
@@ -26,7 +28,7 @@ function EditarLivro() {
     async function buscarDetalhesDoLivro() {
       try {
         const response = await axios.get(
-          `mongodb+srv://leobasso08:leonardo00@clusterleo.6stdym7.mongodb.net/${id}`
+          `http://localhost:4000/Livros/${id}`
         );
         const detalhes = response.data;
         setLivroDetalhes(detalhes);
@@ -63,11 +65,14 @@ function EditarLivro() {
     if (Object.keys(errors).length === 0) {
       try {
         await axios.put(
-          `mongodb+srv://leobasso08:leonardo00@clusterleo.6stdym7.mongodb.net/${id}`,
+          `http://localhost:4000/Livros/${id}`,
           edicao
         );
-        setMensagem("Alterações salvas com sucesso");
-        setTimeout(clearMessage, 3000);
+        setMensagem("Alterações sendo salvas, aguarde...");
+        setTimeout(() => {
+          clearMessage();
+          navigate("/");
+        }, 3000);
       } catch (error) {
         console.error("Erro ao editar o livro:", error);
         setMensagem("Erro ao editar o livro. Tente novamente");

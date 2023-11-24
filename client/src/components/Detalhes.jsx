@@ -10,7 +10,7 @@ function Detalhes() {
     async function buscarDetalhesDoLivro() {
       try {
         const response = await axios.get(
-          `mongodb+srv://leobasso08:leonardo00@clusterleo.6stdym7.mongodb.net/${id}`
+          `http://localhost:4000/Livros/${id}`
         );
         const detalhes = response.data;
         setLivroDetalhes(detalhes);

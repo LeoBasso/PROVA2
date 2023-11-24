@@ -8,9 +8,7 @@ function ListLivros() {
   useEffect(() => {
     async function buscarLivros() {
       try {
-        const response = await axios.get(
-          "mongodb+srv://leobasso08:leonardo00@clusterleo.6stdym7.mongodb.net/"
-        );
+        const response = await axios.get("http://localhost:4000/Livros");
         const livrosData = response.data;
         setLivros(livrosData);
       } catch (error) {
@@ -26,10 +24,9 @@ function ListLivros() {
 
     if (confirmarExclusao) {
       try {
-        await axios.delete(
-          `mongodb+srv://leobasso08:leonardo00@clusterleo.6stdym7.mongodb.net/${livroId}`
-        );
+        await axios.delete(`http://localhost:4000/Livros/${livroId}`);
         setLivros(livros.filter((livro) => livro.id !== livroId));
+        window.location.reload();
       } catch (error) {
         console.error("Erro ao excluir o livro:", error);
       }
@@ -52,15 +49,15 @@ function ListLivros() {
             <div className="card mb-4">
               <div className="card-body">
                 <h2 className="card-title">{livro.title}</h2>
-                <Link to={`/detalhes/${livro.id}`}>
+                <Link to={`/detalhes/${livro._id}`}>
                   <button className="btn btn-success mx-2" style={{ opacity: 0.7 }}>Mostrar mais</button>
                 </Link>
-                <Link to={`/editarLivro/${livro.id}`}>
+                <Link to={`/editarLivro/${livro._id}`}>
                   <button className="btn btn-primary mx-2" style={{ opacity: 0.6 }}>Editar Livro</button>
                 </Link>
                 <button
                   className="btn btn-danger mx-2"
-                  onClick={() => excluirLivro(livro.id)}
+                  onClick={() => excluirLivro(livro._id)}
                   style={{ opacity: 0.9 }}
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash-fill" viewBox="0 0 16 16">
