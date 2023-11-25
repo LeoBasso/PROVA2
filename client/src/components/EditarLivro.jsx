@@ -15,6 +15,7 @@ function EditarLivro() {
   });
   const [mensagem, setMensagem] = useState("");
   const [erros, setErros] = useState({});
+  const [showTopMessage, setShowTopMessage] = useState(false);
 
   const clearMessage = () => {
     setMensagem("");
@@ -40,6 +41,17 @@ function EditarLivro() {
 
     buscarDetalhesDoLivro();
   }, [id]);
+
+  useEffect(() => {
+    if (mensagem === "Alterações sendo salvas, aguarde...") {
+      setShowTopMessage(true);
+      setTimeout(() => {
+        setShowTopMessage(false);
+        clearMessage();
+        navigate("/");
+      }, 3000);
+    }
+  }, [mensagem, navigate]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -69,10 +81,6 @@ function EditarLivro() {
           edicao
         );
         setMensagem("Alterações sendo salvas, aguarde...");
-        setTimeout(() => {
-          clearMessage();
-          navigate("/");
-        }, 3000);
       } catch (error) {
         console.error("Erro ao editar o livro:", error);
         setMensagem("Erro ao editar o livro. Tente novamente");
@@ -87,6 +95,13 @@ function EditarLivro() {
   return (
     <div className="bg-light p-4">
       <h1 className="text-darkgrey">Editar Livro</h1>
+
+      {showTopMessage && (
+        <div className="alert alert-success mb-4" role="alert">
+          {mensagem}
+        </div>
+      )}
+
       {livroDetalhes ? (
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
@@ -146,11 +161,6 @@ function EditarLivro() {
           <Link to="/" className="btn btn-secondary ms-2">
             Cancelar
           </Link>
-          {mensagem && (
-            <div className="alert alert-success mt-2" role="alert">
-              {mensagem}
-            </div>
-          )}
         </form>
       ) : (
         <p>Carregando detalhes do livro...</p>
